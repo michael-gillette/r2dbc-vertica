@@ -1,0 +1,9 @@
+# macos
+.DS_Store
+
+# jetbrains
+.idea/
+*.iml
+
+# maven
+target/
