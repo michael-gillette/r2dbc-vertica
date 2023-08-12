@@ -34,6 +34,7 @@
     <revision>0.0.1</revision>
 
     <!-- Dependency Versions -->
+    <assertj.version>3.24.2</assertj.version>
     <flatten-maven.version>1.4.1</flatten-maven.version>
     <java.version>11</java.version>
     <junit5.version>5.9.2</junit5.version>
@@ -71,8 +72,19 @@
 
     <!-- Test -->
     <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
+      <version>${junit5.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
       <version>${junit5.version}</version>
       <scope>test</scope>
     </dependency>
