@@ -45,6 +45,7 @@
     <reactor.version>3.5.5</reactor.version>
     <reactor-netty.version>1.1.6</reactor-netty.version>
     <spring.version>6.0.8</spring.version>
+    <vertica.version>12.0.4-0</vertica.version>
   </properties>
 
   <dependencies>
@@ -97,6 +98,12 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-jdbc</artifactId>
       <version>${spring.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.vertica.jdbc</groupId>
+      <artifactId>vertica-jdbc</artifactId>
+      <version>${vertica.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
