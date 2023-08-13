@@ -43,8 +43,10 @@ class EmptyQueryResponseTest {
 
             subject.encode(EmptyQueryResponse.Data.INSTANCE, dst);
 
-            Assertions.assertThat(dst.writerIndex())
-                .isEqualTo(0);
+            Assertions.assertThat(dst)
+                .isEqualTo(
+                    Unpooled.buffer(0)
+                );
         }
 
     }

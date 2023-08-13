@@ -61,8 +61,11 @@ class ReadyForQueryResponseTest {
 
             subject.encode(content, dst);
 
-            Assertions.assertThat(dst.readByte())
-                .isEqualTo(content.transactionState());
+            Assertions.assertThat(dst)
+                .isEqualTo(
+                    Unpooled.buffer()
+                        .writeByte(content.transactionState())
+                );
         }
 
     }

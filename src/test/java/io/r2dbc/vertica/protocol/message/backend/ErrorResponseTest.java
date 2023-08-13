@@ -55,11 +55,12 @@ class ErrorResponseTest {
 
             subject.encode(content, dst);
 
-            Assertions.assertThat(dst.readCharSequence(content.error().length(), StandardCharsets.UTF_8))
-                .isEqualTo(content.error());
-
-            Assertions.assertThat(dst.readByte())
-                .isEqualTo((byte) 0);
+            Assertions.assertThat(dst)
+                .isEqualTo(
+                    Unpooled.buffer()
+                        .writeBytes(content.error().getBytes(StandardCharsets.UTF_8))
+                        .writeByte(0)
+                );
         }
 
     }
