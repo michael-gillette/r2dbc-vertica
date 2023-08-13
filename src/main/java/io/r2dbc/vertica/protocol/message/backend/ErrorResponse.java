@@ -2,7 +2,6 @@ package io.r2dbc.vertica.protocol.message.backend;
 
 import io.netty.buffer.ByteBuf;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 public final class ErrorResponse implements BackendMessage<ErrorResponse.Data> {
@@ -16,11 +15,7 @@ public final class ErrorResponse implements BackendMessage<ErrorResponse.Data> {
             throw new IllegalArgumentException("expected non-empty content");
         }
 
-        var error = src.readCharSequence(src.bytesBefore((byte) 0), StandardCharsets.UTF_8).toString();
-
-        src.skipBytes(1);
-
-        return new Data(error);
+        return new Data(Wire.readCStringUTF8(src));
     }
 
     /**
@@ -28,8 +23,7 @@ public final class ErrorResponse implements BackendMessage<ErrorResponse.Data> {
      */
     @Override
     public void encode(Data content, ByteBuf dst) {
-        dst.writeCharSequence(content.error(), StandardCharsets.UTF_8);
-        dst.writeByte(0);
+        Wire.writeCStringUTF8(dst, content.error());
     }
 
     public static final class Data implements BackendContent {

@@ -11,12 +11,7 @@ public final class AuthCryptResponse implements BackendMessage<AuthCryptResponse
      */
     @Override
     public Data decode(ByteBuf src) {
-        var size = src.readableBytes();
-        var target = new byte[size];
-        for (var offset = size - 1; offset >= 0; offset--) {
-            target[offset] = src.readByte();
-        }
-        return new Data(target);
+        return new Data(Wire.readBytesLE(src));
     }
 
     /**
@@ -24,11 +19,7 @@ public final class AuthCryptResponse implements BackendMessage<AuthCryptResponse
      */
     @Override
     public void encode(Data content, ByteBuf dst) {
-        var salt = content.salt();
-
-        for (var x = salt.length - 1; x >= 0; x--) {
-            dst.writeByte(salt[x]);
-        }
+        Wire.writeBytesLE(dst, content.salt());
     }
 
     public static final class Data implements BackendContent {
