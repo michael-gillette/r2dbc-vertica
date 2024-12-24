@@ -1,5 +1,6 @@
 package io.r2dbc.vertica.protocol.message.backend;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +22,7 @@ class ReadyForQueryResponseTest {
 
         @Test
         void whenTooFewBytes_thenThrow() {
-            var src = Unpooled.buffer();
+            ByteBuf src = Unpooled.buffer();
 
             Assertions.assertThatThrownBy(() -> subject.decode(src))
                 .isOfAnyClassIn(IllegalArgumentException.class)
@@ -30,7 +31,7 @@ class ReadyForQueryResponseTest {
 
         @Test
         void whenTooManyBytes_thenThrow() {
-            var src = Unpooled.buffer(2);
+            ByteBuf src = Unpooled.buffer(2);
 
             Assertions.assertThatThrownBy(() -> subject.decode(src))
                     .isOfAnyClassIn(IllegalArgumentException.class)
@@ -42,7 +43,7 @@ class ReadyForQueryResponseTest {
             ints = { 0, 1 }
         )
         void whenOk_thenReturn(int transactionState) {
-            var src = Unpooled.buffer().writeByte(transactionState);
+            ByteBuf src = Unpooled.buffer().writeByte(transactionState);
 
             Assertions.assertThat(subject.decode(src))
                 .isEqualTo(new ReadyForQueryResponse.Data((byte) transactionState));
@@ -57,7 +58,7 @@ class ReadyForQueryResponseTest {
         @ParameterizedTest
         @MethodSource("io.r2dbc.vertica.protocol.message.backend.ReadyForQueryResponseTest#contentArgs")
         void whenOk_thenReturn(ReadyForQueryResponse.Data content) {
-            var dst = Unpooled.buffer();
+            ByteBuf dst = Unpooled.buffer();
 
             subject.encode(content, dst);
 

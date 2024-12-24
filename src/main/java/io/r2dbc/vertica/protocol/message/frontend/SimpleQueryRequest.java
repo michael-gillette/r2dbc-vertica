@@ -13,7 +13,7 @@ public final class SimpleQueryRequest implements FrontendMessage<SimpleQueryRequ
             throw new IllegalArgumentException("unexpected request type");
         }
 
-        var sql = src.readCharSequence(src.readInt() - 5, StandardCharsets.UTF_8);
+        CharSequence sql = src.readCharSequence(src.readInt() - 5, StandardCharsets.UTF_8);
         src.readByte();
 
         return new Data(sql.toString());
@@ -21,7 +21,7 @@ public final class SimpleQueryRequest implements FrontendMessage<SimpleQueryRequ
 
     @Override
     public void encode(Data content, ByteBuf dst) {
-        var sql = content.sql().replace("\u0000", "\\000");
+        String sql = content.sql().replace("\u0000", "\\000");
 
         dst.writeByte(81);
         dst.writeInt(5 + sql.length());

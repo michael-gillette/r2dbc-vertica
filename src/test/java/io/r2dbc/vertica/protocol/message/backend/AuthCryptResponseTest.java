@@ -1,5 +1,6 @@
 package io.r2dbc.vertica.protocol.message.backend;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,7 @@ class AuthCryptResponseTest {
 
         @Test
         void whenOk_thenReturn() {
-            var src = Unpooled.buffer().writeBytes(new byte[] {
+            ByteBuf src = Unpooled.buffer().writeBytes(new byte[] {
                 (byte) 0x01, (byte) 0x02, (byte) 0x03,
             });
 
@@ -34,7 +35,7 @@ class AuthCryptResponseTest {
 
         @Test
         void whenOk_thenReturn() {
-            var dst = Unpooled.buffer();
+            ByteBuf dst = Unpooled.buffer();
 
             subject.encode(
                 new AuthCryptResponse.Data(new byte[] {

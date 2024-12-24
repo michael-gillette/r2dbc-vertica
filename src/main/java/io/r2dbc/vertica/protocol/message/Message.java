@@ -48,9 +48,9 @@ public interface Message<T extends Message.Content> {
          * @return {@code byte[]}
          */
         public static byte[] readBytesLE(ByteBuf src) {
-            var size = src.readableBytes();
-            var result = new byte[size];
-            for (var offset = size - 1; offset >= 0; offset--) {
+            int size = src.readableBytes();
+            byte[] result = new byte[size];
+            for (int offset = size - 1; offset >= 0; offset--) {
                 result[offset] = src.readByte();
             }
             return result;
@@ -63,7 +63,7 @@ public interface Message<T extends Message.Content> {
          * @return {@link String}
          */
         public static String readCStringUTF8(ByteBuf src) {
-            var result = src.readCharSequence(src.bytesBefore((byte) 0), StandardCharsets.UTF_8);
+            CharSequence result = src.readCharSequence(src.bytesBefore((byte) 0), StandardCharsets.UTF_8);
             src.skipBytes(1);
             return result.toString();
         }
@@ -76,7 +76,7 @@ public interface Message<T extends Message.Content> {
          * @return {@link ByteBuf} ({@code dst})
          */
         public static ByteBuf writeBytesLE(ByteBuf dst, byte[] bytes) {
-            for (var x = bytes.length - 1; x >= 0; x--) {
+            for (int x = bytes.length - 1; x >= 0; x--) {
                 dst.writeByte(bytes[x]);
             }
             return dst;

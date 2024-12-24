@@ -29,9 +29,9 @@ public abstract class ProtocolVersion {
     public static final short MINOR;
 
     static {
-        var versionParts = STR.split("\\.");
-        var versionMajor = Integer.parseInt(versionParts[0]);
-        var versionMinor = versionParts.length == 1 ? 0 : Integer.parseInt(versionParts[1]);
+        String[] versionParts = STR.split("\\.");
+        int versionMajor = Integer.parseInt(versionParts[0]);
+        int versionMinor = versionParts.length == 1 ? 0 : Integer.parseInt(versionParts[1]);
 
         INT = versionMajor << 16 | versionMinor;
         MAJOR = (short) (INT >> 16);

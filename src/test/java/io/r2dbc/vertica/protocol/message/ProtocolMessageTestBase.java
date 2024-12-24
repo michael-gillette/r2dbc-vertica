@@ -23,10 +23,10 @@ public abstract class ProtocolMessageTestBase<T extends Message.Content> {
         return translations().map(it -> DynamicTest.dynamicTest(
             it.name,
             () -> {
-                var srcObj = it.content;
-                var srcBuf = it.buffer;
-                var dstObj = subject.decode(srcBuf);
-                var dstBuf = Unpooled.buffer();
+                T srcObj = it.content;
+                ByteBuf srcBuf = it.buffer;
+                T dstObj = subject.decode(srcBuf);
+                ByteBuf dstBuf = Unpooled.buffer();
                 subject.encode(srcObj, dstBuf);
 
                 Assertions.assertThat(dstBuf.array())

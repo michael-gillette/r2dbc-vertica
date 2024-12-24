@@ -5,6 +5,7 @@ import io.r2dbc.vertica.protocol.ProtocolVersion;
 import io.r2dbc.vertica.protocol.message.ProtocolMessageTestBase;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -17,8 +18,7 @@ class StartupRequestTest extends ProtocolMessageTestBase<StartupRequest.Data> {
 
     @Override
     protected Stream<Translation<StartupRequest.Data>> translations() {
-        // Map.of is randomly reversed – so affix the order
-        var manyMap = new LinkedHashMap<String, String>();
+        HashMap<String, String> manyMap = new LinkedHashMap<>();
         manyMap.put("hello", "world");
         manyMap.put("protocol_version", ProtocolVersion.STR);
 

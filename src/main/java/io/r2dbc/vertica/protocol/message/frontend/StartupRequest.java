@@ -15,16 +15,16 @@ public final class StartupRequest implements FrontendMessage<StartupRequest.Data
             throw new IllegalArgumentException("expected 'size', 'major', 'minor', NUL elements");
         }
 
-        var size = src.readInt();
+        int size = src.readInt();
         @SuppressWarnings("unused")
-        var protocolVersionMajor = src.readShort();
+        short protocolVersionMajor = src.readShort();
         @SuppressWarnings("unused")
-        var protocolVersionMinor = src.readShort();
+        short protocolVersionMinor = src.readShort();
 
-        var parameters = new LinkedHashMap<String, String>();
-        var parametersSlice = src.readSlice(size - 9);
+        LinkedHashMap<String, String> parameters = new LinkedHashMap<>();
+        ByteBuf parametersSlice = src.readSlice(size - 9);
         while (parametersSlice.readableBytes() > 0) {
-            var k = Wire.readCStringUTF8(parametersSlice);
+            String k = Wire.readCStringUTF8(parametersSlice);
             if (k.equals("protocol_version")) {
                 parameters.put(k, ProtocolVersion.stringFromInt(parametersSlice.readInt()));
             } else {
@@ -37,7 +37,7 @@ public final class StartupRequest implements FrontendMessage<StartupRequest.Data
 
     @Override
     public void encode(Data content, ByteBuf dst) {
-        var lengthOffset = dst.writerIndex();
+        int lengthOffset = dst.writerIndex();
 
         dst.writeInt(0);
         dst.writeShort(ProtocolVersion.MAJOR);

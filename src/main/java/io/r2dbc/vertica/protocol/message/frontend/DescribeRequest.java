@@ -13,8 +13,8 @@ public final class DescribeRequest implements FrontendMessage<DescribeRequest.Da
         }
 
         src.readInt();
-        var usePortal = src.readByte() == 80;
-        var name = Wire.readCStringUTF8(src);
+        boolean usePortal = src.readByte() == 80;
+        String name = Wire.readCStringUTF8(src);
 
         return new Data(usePortal, name);
     }

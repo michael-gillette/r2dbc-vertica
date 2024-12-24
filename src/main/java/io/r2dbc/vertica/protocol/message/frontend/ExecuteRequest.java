@@ -13,8 +13,8 @@ public final class ExecuteRequest implements FrontendMessage<ExecuteRequest.Data
         }
 
         src.readInt();
-        var name = Wire.readCStringUTF8(src);
-        var maxRows = src.readInt();
+        String name = Wire.readCStringUTF8(src);
+        int maxRows = src.readInt();
 
         return new Data(name, maxRows);
     }

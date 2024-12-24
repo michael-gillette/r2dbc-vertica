@@ -1,5 +1,6 @@
 package io.r2dbc.vertica.protocol.message.backend;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,7 @@ class EmptyQueryResponseTest {
 
         @Test
         void whenTooManyBytes_thenThrow() {
-            var src = Unpooled.buffer().writeByte(1);
+            ByteBuf src = Unpooled.buffer().writeByte(1);
 
             Assertions.assertThatThrownBy(() -> subject.decode(src))
                 .isOfAnyClassIn(IllegalArgumentException.class)
@@ -25,7 +26,7 @@ class EmptyQueryResponseTest {
 
         @Test
         void whenOk_thenReturn() {
-            var src = Unpooled.buffer();
+            ByteBuf src = Unpooled.buffer();
 
             Assertions.assertThat(subject.decode(src))
                 .isEqualTo(EmptyQueryResponse.Data.INSTANCE);
@@ -39,7 +40,7 @@ class EmptyQueryResponseTest {
 
         @Test
         void whenOk_thenReturn() {
-            var dst = Unpooled.buffer();
+            ByteBuf dst = Unpooled.buffer();
 
             subject.encode(EmptyQueryResponse.Data.INSTANCE, dst);
 

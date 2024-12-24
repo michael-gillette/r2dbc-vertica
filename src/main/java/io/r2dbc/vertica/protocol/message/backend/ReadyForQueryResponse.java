@@ -11,7 +11,7 @@ public final class ReadyForQueryResponse implements BackendMessage<ReadyForQuery
      */
     @Override
     public Data decode(ByteBuf src) {
-        var readableBytes = src.readableBytes();
+        int readableBytes = src.readableBytes();
         if (readableBytes != 1) {
             throw new IllegalArgumentException("expected buffer with 1 byte remaining but found " + readableBytes);
         }

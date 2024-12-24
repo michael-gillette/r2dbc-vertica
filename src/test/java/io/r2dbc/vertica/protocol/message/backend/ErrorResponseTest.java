@@ -1,5 +1,6 @@
 package io.r2dbc.vertica.protocol.message.backend;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +23,7 @@ class ErrorResponseTest {
 
         @Test
         void whenTooFewBytes_thenThrow() {
-            var src = Unpooled.buffer();
+            ByteBuf src = Unpooled.buffer();
 
             Assertions.assertThatThrownBy(() -> subject.decode(src))
                 .isOfAnyClassIn(IllegalArgumentException.class)
@@ -34,7 +35,7 @@ class ErrorResponseTest {
             strings = { "hello", "world" }
         )
         void whenOk_thenReturn(String error) {
-            var src = Unpooled.buffer();
+            ByteBuf src = Unpooled.buffer();
             src.writeCharSequence(error, StandardCharsets.UTF_8);
             src.writeByte((byte) 0);
 
@@ -51,7 +52,7 @@ class ErrorResponseTest {
         @ParameterizedTest
         @MethodSource("io.r2dbc.vertica.protocol.message.backend.ErrorResponseTest#contentArgs")
         void whenOk_thenReturn(ErrorResponse.Data content) {
-            var dst = Unpooled.buffer();
+            ByteBuf dst = Unpooled.buffer();
 
             subject.encode(content, dst);
 

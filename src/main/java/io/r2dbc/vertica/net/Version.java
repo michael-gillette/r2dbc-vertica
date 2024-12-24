@@ -67,7 +67,7 @@ public final class Version implements Comparable<Version> {
             return false;
         }
 
-        var o = (Version) object;
+        Version o = (Version) object;
         return major == o.major && minor == o.minor && patch == o.patch;
     }
 
