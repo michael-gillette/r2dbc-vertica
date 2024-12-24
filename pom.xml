@@ -34,20 +34,21 @@
     <revision>0.0.1</revision>
 
     <!-- Dependency Versions -->
-    <assertj.version>3.24.2</assertj.version>
-    <flatten-maven.version>1.4.1</flatten-maven.version>
+    <assertj.version>3.27.0</assertj.version>
+    <flatten-maven.version>1.6.0</flatten-maven.version>
     <java.version>11</java.version>
-    <junit5.version>5.9.3</junit5.version>
-    <maven-compiler.version>3.11.0</maven-compiler.version>
-    <maven-enforcer.version>3.3.0</maven-enforcer.version>
-    <maven-javadoc.version>3.4.1</maven-javadoc.version>
-    <maven-surefire.version>3.0.0</maven-surefire.version>
-    <mockito.version>5.3.1</mockito.version>
+    <junit5.version>5.11.4</junit5.version>
+    <maven-compiler.version>3.13.0</maven-compiler.version>
+    <maven-enforcer.version>3.5.0</maven-enforcer.version>
+    <maven-javadoc.version>3.11.2</maven-javadoc.version>
+    <maven-source.version>3.3.1</maven-source.version>
+    <maven-surefire.version>3.5.2</maven-surefire.version>
+    <mockito.version>5.14.2</mockito.version>
     <r2dbc-spi.version>1.0.0.RELEASE</r2dbc-spi.version>
-    <reactor.version>3.5.5</reactor.version>
-    <reactor-netty.version>1.1.6</reactor-netty.version>
-    <spring.version>6.0.8</spring.version>
-    <vertica.version>12.0.4-0</vertica.version>
+    <reactor.version>3.7.1</reactor.version>
+    <reactor-netty.version>1.2.1</reactor-netty.version>
+    <spring.version>5.3.32</spring.version>
+    <vertica.version>24.4.0-0</vertica.version>
   </properties>
 
   <dependencies>
@@ -202,7 +203,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.2.1</version>
+        <version>${maven-source.version}</version>
         <executions>
           <execution>
             <id>attach</id>
