@@ -1,5 +1,6 @@
 package io.r2dbc.vertica.protocol.message;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import io.netty.buffer.ByteBuf;
 
 import java.nio.charset.StandardCharsets;
@@ -75,6 +76,7 @@ public interface Message<T extends Message.Content> {
          * @param bytes Data to write
          * @return {@link ByteBuf} ({@code dst})
          */
+        @CanIgnoreReturnValue
         public static ByteBuf writeBytesLE(ByteBuf dst, byte[] bytes) {
             for (int x = bytes.length - 1; x >= 0; x--) {
                 dst.writeByte(bytes[x]);
@@ -89,6 +91,7 @@ public interface Message<T extends Message.Content> {
          * @param string String to write.
          * @return {@link ByteBuf} ({@code self})
          */
+        @CanIgnoreReturnValue
         public static ByteBuf writeCStringUTF8(ByteBuf dst, String string) {
             dst.writeCharSequence(string, StandardCharsets.UTF_8);
             dst.writeByte(0);

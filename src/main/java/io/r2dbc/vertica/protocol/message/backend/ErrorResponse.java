@@ -40,8 +40,12 @@ public final class ErrorResponse implements BackendMessage<ErrorResponse.Data> {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof Data)) {
+                return false;
+            }
             Data data = (Data) o;
             return Objects.equals(error, data.error);
         }

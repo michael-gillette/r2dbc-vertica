@@ -4,8 +4,10 @@ import io.r2dbc.vertica.protocol.type.StatementParameter;
 import io.r2dbc.vertica.protocol.type.TypedValue;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 public final class CopyDataRequest {
@@ -26,8 +28,8 @@ public final class CopyDataRequest {
             boolean isEmpty
     ) {
         this.addHeader = addHeader;
-        this.statementParameters = List.copyOf(statementParameters);
-        this.statementData = Map.copyOf(statementData);
+        this.statementParameters = Collections.unmodifiableCollection(new ArrayList<>(statementParameters));
+        this.statementData = Collections.unmodifiableMap(new HashMap<>(statementData));
         this.stream = stream;
         this.numParams = numParams;
         this.isEmpty = isEmpty;

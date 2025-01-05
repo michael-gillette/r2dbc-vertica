@@ -41,8 +41,12 @@ public final class ReadyForQueryResponse implements BackendMessage<ReadyForQuery
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof Data)) {
+                return false;
+            }
             Data data = (Data) o;
             return transactionState == data.transactionState;
         }

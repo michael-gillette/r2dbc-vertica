@@ -16,6 +16,7 @@
 package io.r2dbc.vertica.net;
 
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -38,7 +39,7 @@ public final class Version implements Comparable<Version> {
         this.major = major;
         this.minor = minor;
         this.patch = patch;
-        this.version = String.format("%d.%d.%d", major, minor, patch);
+        this.version = String.format(Locale.ROOT, "%d.%d.%d", major, minor, patch);
     }
 
     public int major() {

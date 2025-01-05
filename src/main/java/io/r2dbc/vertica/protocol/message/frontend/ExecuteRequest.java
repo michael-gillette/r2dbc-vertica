@@ -47,8 +47,12 @@ public final class ExecuteRequest implements FrontendMessage<ExecuteRequest.Data
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof Data)) {
+                return false;
+            }
             Data data = (Data) o;
             return maxRows == data.maxRows && Objects.equals(name, data.name);
         }
