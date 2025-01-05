@@ -35,6 +35,7 @@
 
     <!-- Dependency Versions -->
     <assertj.version>3.27.0</assertj.version>
+    <error-prone.version>2.36.0</error-prone.version>
     <flatten-maven.version>1.6.0</flatten-maven.version>
     <java.version>1.8</java.version>
     <junit5.version>5.11.4</junit5.version>
@@ -121,6 +122,14 @@
       <version>${vertica.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <!-- Provided -->
+    <dependency>
+      <groupId>com.google.errorprone</groupId>
+      <artifactId>error_prone_annotations</artifactId>
+      <version>${error-prone.version}</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -156,10 +165,30 @@
         <configuration>
           <compilerArgs>
             <arg>-Xlint:all</arg>
+            <!-- ErrorProne -->
+            <arg>-XDcompilePolicy=simple</arg>
+            <arg>--should-stop=ifError=FLOW</arg>
+            <arg>
+              -Xplugin:ErrorProne
+              -XepAllDisabledChecksAsWarnings
+              -Xep:FieldCanBeLocal:OFF
+              -Xep:ImmutableMemberCollection:OFF
+              -Xep:Java7ApiChecker:OFF
+              -Xep:IdentifierName:OFF
+              -Xep:UnusedVariable:OFF
+              -Xep:Varifier:OFF
+            </arg>
           </compilerArgs>
           <showWarnings>true</showWarnings>
           <source>${java.version}</source>
           <target>${java.version}</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_core</artifactId>
+              <version>${error-prone.version}</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
       <plugin>
